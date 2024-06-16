@@ -1,12 +1,12 @@
-<% layout('/layouts/boilerplate') -%>
+<% layout('/layouts/boilerplate') -%><%= success %><%= error  %>
 <body>
     <h3>listing</h3>
-    <form method="get" action="/listing/new">
+    <form method="get" action="/listings/new">
         <button>add new</button>
     </form>
     <ul>
         <%    for(let listing of allListing){ %>
-              <li><a href="/listing/<%= listing._id %>"><%= listing.title %></a></li>
+              <li><a href="/listings/<%= listing._id %>"><%= listing.title %></a></li>
          <%  } %>
       </ul>
 </body>

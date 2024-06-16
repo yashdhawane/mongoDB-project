@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show</title>
-</head>
+<% layout('/layouts/boilerplate') -%><%= success %><%= error %>
+
 <body>
     <h3>Listing Details</h3>
     <ul>
@@ -16,8 +11,46 @@
 
     </ul>
     <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
-    <form method="post" action="/listing/<%= listing._id %>?_method=DELETE">
+    <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
         <button>delete</button>
     </form>
+                                   
+    <div class="col-8 offset-3 mb-3">
+        <hr>
+        <h4>Leave a review</h4>
+        <form method="post" action="/listings/<%=listing.id%>/reviews" novalidate class="needs-validation">
+            <div>
+                <label for="rating">Rating</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]" >
+            </div>
+            <div>
+                <label for="comment" class="form-label">comment</label>
+                <textarea name="review[comment]"
+                id="comment"
+                cols="30"
+                rows="5"
+                class="form-control"></textarea>
+                <div class="invalid-feedback">
+                    Please add some comments
+                </div>
+            </div>
+            <button>submit</button>
+        </form>
+        <hr>
+
+        <h4>All reviews</h4>
+        <ul>
+            <% for(review of listing.reviews) {%>
+                <li><%= review.comment %>,<%= review.rating %></li>
+                <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%=review._id%>?_method=DELETE">
+                    <button class="btn btn-sm btn-dark">delete</button>
+                </form>
+                
+                
+                    
+                
+            <% } %>
+            
+        </ul>
+    </div>
 </body>
-</html>
