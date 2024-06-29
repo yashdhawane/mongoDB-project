@@ -1,8 +1,7 @@
 const express = require('express');
 const app=express();
 const mongoose = require('mongoose');
-const Listing = require("./models/listing.js");
-const Review = require("./models/review.js")
+ 
 const path= require('path')
 app.use(express.urlencoded({ extended: true })); 
 const methodOverride = require("method-override");
@@ -12,8 +11,6 @@ const reviewsRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 const session =require("express-session");
 const flash = require('connect-flash');
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 
@@ -43,12 +40,7 @@ const sessionOptions={
 app.use(session(sessionOptions));
 app.use(flash());
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 
 
